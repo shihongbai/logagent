@@ -6,8 +6,9 @@ type Config struct {
 }
 
 type KafkaConfig struct {
-	Address string `ini:"address"`
-	Topic   string `ini:"topic"`
+	Address   string `ini:"address"`
+	Topic     string `ini:"topic"`
+	ChainSize int64  `ini:"chain_size"`
 }
 
 type CollectConfig struct {
