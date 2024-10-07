@@ -1,17 +1,13 @@
 package main
 
 import (
-	"errors"
-	"fmt"
-	"github.com/Shopify/sarama"
 	"github.com/go-ini/ini"
 	"github.com/sirupsen/logrus"
-	"logagent/collector"
 	"logagent/conf/model"
 	"logagent/etcd"
 	"logagent/kafka"
+	"logagent/tails"
 	"strings"
-	"time"
 )
 
 // 指定目录下的日志文件，发送到Kafka中
@@ -50,60 +46,20 @@ func main() {
 	// 获取配置
 	confs, err := etcd.GetCollectorConf(configObj.EtcdConfig.CollectKey)
 	if err != nil {
-		logrus.Errorf("Fail to get collector confs, err: %v", err)
+		logrus.Errorf("Fail to get tails confs, err: %v", err)
 		return
 	}
 
-	fmt.Printf("%v", confs)
+	// 监控对应key的变化
+	go etcd.Watch(configObj.EtcdConfig.CollectKey)
 
 	// 3. 通过tail将日志读取到内存
-	err = collector.Init(configObj.LogFilePath)
+	err = tails.Init(confs)
 	if err != nil {
 		logrus.Errorf("Fail to init tailCollector, err: %v", err)
 		return
 	}
 	logrus.Infof("tailCollector init success")
 
-	// 4. 使用saram写入到Kafka
-	// 从tail --> log --> kafka client -->
-	err = run()
-	if err != nil {
-		logrus.Errorf("Fail to run tailCollector, err: %v", err)
-		return
-	}
-
-	return
-}
-
-// log agent业务逻辑
-func run() error {
-
-	for {
-		line, ok := <-collector.GetTailLiens()
-		if len(line.Text) == 0 || len(strings.TrimSpace(line.Text)) == 0 {
-			logrus.Infof("log line is empty")
-			continue
-		}
-
-		if len(strings.Trim(line.Text, "\r")) == 0 {
-			logrus.Infof("log line is empty")
-			continue
-		}
-
-		if !ok {
-			logrus.Warnf("No log is currently written")
-			time.Sleep(time.Second)
-			continue
-		}
-
-		// 利用通道异步 写入Kafka
-		//kafka.SendMessage(msg.Text)
-		msg := &sarama.ProducerMessage{}
-		msg.Topic = "web_log"
-		msg.Value = sarama.StringEncoder(line.Text)
-		// 传入管道中
-		kafka.SendToChan(msg)
-	}
-
-	return errors.New("写日志启动失败")
+	select {}
 }
