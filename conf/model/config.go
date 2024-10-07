@@ -3,6 +3,7 @@ package model
 type Config struct {
 	KafkaConfig   `ini:"kafka"`
 	CollectConfig `ini:"collect"`
+	EtcdConfig    `ini:"etcd"`
 }
 
 type KafkaConfig struct {

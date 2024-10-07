@@ -1,4 +1,4 @@
-package utils
+package collector
 
 import (
 	"errors"
@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var TailCollector *tail.Tail
+var tailCollector *tail.Tail
 
 func Init(filePath string) (err error) {
 	if filePath == "" {
@@ -23,11 +23,15 @@ func Init(filePath string) (err error) {
 		Poll:      true,
 	}
 
-	TailCollector, err = tail.TailFile(filePath, config)
+	tailCollector, err = tail.TailFile(filePath, config)
 	if err != nil {
 		logrus.Errorf("create tailObj fail err:%v", err)
 		return err
 	}
 
 	return nil
+}
+
+func GetTailLiens() <-chan *tail.Line {
+	return tailCollector.Lines
 }

@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7c5bd1c-1b4d-4ff2-b49e-3790e543230e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conf/config.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conf/model/kafka_collection.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kafka/kafka.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+    <list default="true" id="b7c5bd1c-1b4d-4ff2-b49e-3790e543230e" name="Changes" comment="feat(日志client): log agent 写入Kafka全流程">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka/kafka.go" beforeDir="false" afterPath="$PROJECT_DIR$/kafka/kafka.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +80,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat(日志client): log agent 客户端入口开发 first commit" />
+    <MESSAGE value="feat(日志client): log agent 写入Kafka全流程" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(日志client): log agent 写入Kafka全流程" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

@@ -7,13 +7,13 @@ import (
 
 var (
 	Client  sarama.SyncProducer
-	MsgChan chan *sarama.ProducerMessage
+	msgChan chan *sarama.ProducerMessage
 )
 
 func sendMessage() error {
 	for {
 		select {
-		case msg := <-MsgChan:
+		case msg := <-msgChan:
 			// 发送消息
 			pid, offset, err := Client.SendMessage(msg)
 			if err != nil {
@@ -24,7 +24,10 @@ func sendMessage() error {
 			logrus.Infof("send msg(info: %s) to kafka success pid:%d offset:%d", msg.Value, pid, offset)
 		}
 	}
+}
 
+func SendToChan(msg *sarama.ProducerMessage) {
+	msgChan <- msg
 }
 
 func InitKafka(address []string, chanSize int64) (err error) {
@@ -45,7 +48,7 @@ func InitKafka(address []string, chanSize int64) (err error) {
 	}
 
 	// 初始化通道
-	MsgChan = make(chan *sarama.ProducerMessage, chanSize)
+	msgChan = make(chan *sarama.ProducerMessage, chanSize)
 
 	// 启动kafka发送消息
 	go sendMessage()

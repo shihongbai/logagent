@@ -2,18 +2,19 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"github.com/Shopify/sarama"
 	"github.com/go-ini/ini"
 	"github.com/sirupsen/logrus"
+	"logagent/collector"
 	"logagent/conf/model"
+	"logagent/etcd"
 	"logagent/kafka"
-	"logagent/utils"
 	"strings"
 	"time"
 )
 
 // 指定目录下的日志文件，发送到Kafka中
-
 func main() {
 	// 1. 读配置
 	cfg, err := ini.Load("./conf/config.ini")
@@ -30,7 +31,7 @@ func main() {
 	}
 
 	// 2. 初始化连接kafka
-	err = kafka.InitKafka(strings.Split(configObj.Address, ","), configObj.ChainSize)
+	err = kafka.InitKafka(strings.Split(configObj.KafkaConfig.Address, ","), configObj.ChainSize)
 	if err != nil {
 		logrus.Errorf("Fail to connect kafka, err: %v", err)
 		return
@@ -38,8 +39,25 @@ func main() {
 
 	logrus.Infof("kafka connect success")
 
+	// 从etcd统一获取配置项
+	// 初始化etcd
+	err = etcd.Init(strings.Split(configObj.EtcdConfig.Address, ","))
+	if err != nil {
+		logrus.Errorf("Fail to connect etcd, err: %v", err)
+		return
+	}
+
+	// 获取配置
+	confs, err := etcd.GetCollectorConf(configObj.EtcdConfig.CollectKey)
+	if err != nil {
+		logrus.Errorf("Fail to get collector confs, err: %v", err)
+		return
+	}
+
+	fmt.Printf("%v", confs)
+
 	// 3. 通过tail将日志读取到内存
-	err = utils.Init(configObj.LogFilePath)
+	err = collector.Init(configObj.LogFilePath)
 	if err != nil {
 		logrus.Errorf("Fail to init tailCollector, err: %v", err)
 		return
@@ -61,7 +79,17 @@ func main() {
 func run() error {
 
 	for {
-		line, ok := <-utils.TailCollector.Lines
+		line, ok := <-collector.GetTailLiens()
+		if len(line.Text) == 0 || len(strings.TrimSpace(line.Text)) == 0 {
+			logrus.Infof("log line is empty")
+			continue
+		}
+
+		if len(strings.Trim(line.Text, "\r")) == 0 {
+			logrus.Infof("log line is empty")
+			continue
+		}
+
 		if !ok {
 			logrus.Warnf("No log is currently written")
 			time.Sleep(time.Second)
@@ -74,7 +102,7 @@ func run() error {
 		msg.Topic = "web_log"
 		msg.Value = sarama.StringEncoder(line.Text)
 		// 传入管道中
-		kafka.MsgChan <- msg
+		kafka.SendToChan(msg)
 	}
 
 	return errors.New("写日志启动失败")
