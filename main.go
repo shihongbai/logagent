@@ -3,10 +3,10 @@ package main
 import (
 	"github.com/go-ini/ini"
 	"github.com/sirupsen/logrus"
-	"logagent/collector"
 	"logagent/conf/model"
 	"logagent/etcd"
 	"logagent/kafka"
+	"logagent/tails"
 	"strings"
 )
 
@@ -46,12 +46,15 @@ func main() {
 	// 获取配置
 	confs, err := etcd.GetCollectorConf(configObj.EtcdConfig.CollectKey)
 	if err != nil {
-		logrus.Errorf("Fail to get collector confs, err: %v", err)
+		logrus.Errorf("Fail to get tails confs, err: %v", err)
 		return
 	}
 
+	// 监控对应key的变化
+	go etcd.Watch(configObj.EtcdConfig.CollectKey)
+
 	// 3. 通过tail将日志读取到内存
-	err = collector.Init(confs)
+	err = tails.Init(confs)
 	if err != nil {
 		logrus.Errorf("Fail to init tailCollector, err: %v", err)
 		return
