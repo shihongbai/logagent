@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7c5bd1c-1b4d-4ff2-b49e-3790e543230e" name="Changes" comment="feat(日志client): log agent 写入Kafka全流程">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka/kafka.go" beforeDir="false" afterPath="$PROJECT_DIR$/kafka/kafka.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+    <list default="true" id="b7c5bd1c-1b4d-4ff2-b49e-3790e543230e" name="Changes" comment="feat(etcd): 从etcd加载配置项">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +37,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build logagent.executor": "Run",
+    "Go Build.go build logagent.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
@@ -84,9 +82,21 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat(日志client): log agent 客户端入口开发 first commit" />
     <MESSAGE value="feat(日志client): log agent 写入Kafka全流程" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(日志client): log agent 写入Kafka全流程" />
+    <MESSAGE value="feat(etcd): 从etcd加载配置项" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(etcd): 从etcd加载配置项" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/etcd/etcd.go</url>
+          <line>53</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
