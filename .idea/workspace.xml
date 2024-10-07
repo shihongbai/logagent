@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7c5bd1c-1b4d-4ff2-b49e-3790e543230e" name="Changes" comment="feat(etcd): git 历史同步" />
+    <list default="true" id="b7c5bd1c-1b4d-4ff2-b49e-3790e543230e" name="Changes" comment="feat(etcd):">
+      <change afterPath="$PROJECT_DIR$/common/colletct_entry.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collector/tail_helper.go" beforeDir="false" afterPath="$PROJECT_DIR$/collector/tail_helper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/etcd/etcd.go" beforeDir="false" afterPath="$PROJECT_DIR$/etcd/etcd.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,20 +88,10 @@
     <MESSAGE value="feat(日志client): log agent 写入Kafka全流程" />
     <MESSAGE value="feat(etcd): 从etcd加载配置项" />
     <MESSAGE value="feat(etcd): git 历史同步" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(etcd): git 历史同步" />
+    <MESSAGE value="feat(etcd):" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(etcd):" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/etcd/etcd.go</url>
-          <line>53</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

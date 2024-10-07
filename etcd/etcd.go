@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/sirupsen/logrus"
 	client "go.etcd.io/etcd/clientv3"
+	"logagent/common"
 	"time"
 )
 
@@ -12,11 +13,6 @@ import (
 var (
 	cli *client.Client
 )
-
-type collectEntry struct {
-	Path  string `json:"path"`
-	Topic string `json:"topic"`
-}
 
 func Init(address []string) error {
 	c, err := client.New(client.Config{
@@ -34,7 +30,7 @@ func Init(address []string) error {
 }
 
 // GetCollectorConf 拉取日志收集的配置
-func GetCollectorConf(key string) (collectCfgList []collectEntry, err error) {
+func GetCollectorConf(key string) (collectCfgList []common.CollectEntry, err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
