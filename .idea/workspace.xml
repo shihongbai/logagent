@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7c5bd1c-1b4d-4ff2-b49e-3790e543230e" name="Changes" comment="feat(etcd): 从etcd加载配置项">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="b7c5bd1c-1b4d-4ff2-b49e-3790e543230e" name="Changes" comment="feat(etcd): git 历史同步" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +81,8 @@
     <MESSAGE value="feat(日志client): log agent 客户端入口开发 first commit" />
     <MESSAGE value="feat(日志client): log agent 写入Kafka全流程" />
     <MESSAGE value="feat(etcd): 从etcd加载配置项" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(etcd): 从etcd加载配置项" />
+    <MESSAGE value="feat(etcd): git 历史同步" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(etcd): git 历史同步" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
