@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	Client  sarama.SyncProducer
+	client  sarama.SyncProducer
 	msgChan chan *sarama.ProducerMessage
 )
 
@@ -15,7 +15,7 @@ func sendMessage() error {
 		select {
 		case msg := <-msgChan:
 			// 发送消息
-			pid, offset, err := Client.SendMessage(msg)
+			pid, offset, err := client.SendMessage(msg)
 			if err != nil {
 				logrus.Errorf("send message error:%v", err)
 				continue
@@ -41,7 +41,7 @@ func InitKafka(address []string, chanSize int64) (err error) {
 	config.Producer.Return.Successes = true
 
 	// 2 连接Kafka
-	Client, err = sarama.NewSyncProducer(address, config)
+	client, err = sarama.NewSyncProducer(address, config)
 	if err != nil {
 		logrus.Errorf("producer create fail, err:%v", err)
 		return err
@@ -51,7 +51,12 @@ func InitKafka(address []string, chanSize int64) (err error) {
 	msgChan = make(chan *sarama.ProducerMessage, chanSize)
 
 	// 启动kafka发送消息
-	go sendMessage()
+	go func() {
+		err = sendMessage()
+		if err != nil {
+			logrus.Errorf("send message error:%v", err)
+		}
+	}()
 
 	return nil
 }
